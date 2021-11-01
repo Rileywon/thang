@@ -10,6 +10,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Validator\Constraints\Type;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
 
 class CourseController extends AbstractController
 {
@@ -62,6 +63,19 @@ class CourseController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted()&&$form->isValid()) {
+
+            $image = $course->getAnh();
+            $imgName = uniqid(); //unique id
+            $imgExtension = $image->guessExtension();
+            $imageName = $imgName . "." . $imgExtension;
+            try {
+                $image->move(
+                    $this->getParameter('course_anh'), $imageName
+                );  
+              } catch (FileException $e) {
+                  //throwException($e);
+              }
+            $course->setAnh($imageName);
 
 
             $manager = $this->getDoctrine()->getManager();

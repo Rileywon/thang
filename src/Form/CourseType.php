@@ -8,6 +8,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
@@ -40,7 +41,15 @@ class CourseType extends AbstractType
             'required' => true
         ])
         
+        ->add('anh', FileType::class,
+        [
+            'label' => "Course Image",
+            'data_class' => null,
+            'required' => is_null($builder->getData()->getAnh())
+        ]
+        )
 
+        
         ->add('view', EntityType::class,
         [
             'label' => "Student",

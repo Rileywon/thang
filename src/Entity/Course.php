@@ -2,10 +2,11 @@
 
 namespace App\Entity;
 
-use App\Repository\CourseRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use App\Entity\Student;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\CourseRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @ORM\Entity(repositoryClass=CourseRepository::class)
@@ -28,11 +29,16 @@ class Course
      * @ORM\Column(type="string", length=30)
      */
     private $category;
+ /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $anh;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
     private $display;
+    
 
     /**
      * @ORM\ManyToMany(targetEntity=Student::class, inversedBy="courses")
@@ -70,6 +76,18 @@ class Course
     {
         $this->category = $category;
 
+        return $this;
+    }
+    public function getAnh()
+    {
+        return $this->anh;
+    }
+
+    public function setAnh( $anh)
+    {
+        if ($anh !=null){
+            $this->anh = $anh;
+        }   
         return $this;
     }
 

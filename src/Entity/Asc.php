@@ -2,13 +2,14 @@
 
 namespace App\Entity;
 
-use App\Repository\AsdRepository;
+use App\Repository\AscRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass=AsdRepository::class)
+ * @ORM\Entity(repositoryClass=AscRepository::class)
+ * @ORM\Table(name="`asc`")
  */
-class Asd
+class Asc
 {
     /**
      * @ORM\Id
